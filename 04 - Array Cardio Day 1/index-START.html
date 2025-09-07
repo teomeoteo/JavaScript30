@@ -39,27 +39,72 @@
     // Array.prototype.filter()
     // 1. Filter the list of inventors for those who were born in the 1500's
 
+    const filteredInventors = inventors.filter(e => e.year >= 1500 && e.year < 1600);
+    // console.log(filteredInventors);
+
     // Array.prototype.map()
     // 2. Give us an array of the inventors first and last names
+
+    const namesInventors = inventors.map(e => e.first + " " + e.last);
+    //console.log(namesInventors);
 
     // Array.prototype.sort()
     // 3. Sort the inventors by birthdate, oldest to youngest
 
+    const sortedInventors = inventors.sort((a, b) => a.year - b.year);
+    // console.log(sortedInventors);
+
     // Array.prototype.reduce()
     // 4. How many years did all the inventors live all together?
 
-    // 5. Sort the inventors by years lived
+    const timeAliveInventors = inventors.reduce((a, e) => a + e.passed - e.year, 0);
+    // console.log(timeAliveInventors);
 
+    // 5. Sort the inventors by years lived
+    const inventorsByLived = inventors.sort((a, b) => {
+      let comparatorA = (a.passed - a.year)
+      let comparatorB = (b.passed - b.year);
+      let currentComparison = comparatorA - comparatorB;
+      return currentComparison;
+    });
+    console.log(inventorsByLived);
+    const inventorsSortedAges = inventorsByLived.map(e => e.passed - e.year); // test if the ages are in order
+    console.log(inventorsSortedAges);
+    
     // 6. create a list of Boulevards in Paris that contain 'de' anywhere in the name
     // https://en.wikipedia.org/wiki/Category:Boulevards_in_Paris
 
+    // ------MY NOTE: dom mainpulation and some NODE shit that wont return as an array blabla boring ugabuga [...] or Array.from
 
     // 7. sort Exercise
     // Sort the people alphabetically by last name
 
+    const alphabeticalPeople = people.sort((a,b) => {
+      const lastA = a.slice(a[0], a.indexOf(",")); // can also be done with split and destructuring array method
+      const lastB = b.slice(b[0], b.indexOf(","));
+      return lastA > lastB ? -1 : 1; // comparing strings with '>' automatically compares them alphabetically
+    });
+
+    console.log(alphabeticalPeople);
+
+    // -------MY NOTE: here we just need to compare the last name with > since in javascript it compares 2 strings alphabetically
+
     // 8. Reduce Exercise
     // Sum up the instances of each of these
     const data = ['car', 'car', 'truck', 'truck', 'bike', 'walk', 'car', 'van', 'bike', 'walk', 'car', 'van', 'car', 'truck' ];
+
+    // -------MY NOTE: this wants you to reduce it into an object that has keys which correspond to all the instance types and then counts how many instances eg. car: 3, truck: 2
+
+    const instances = data.reduce((acc, current) => {
+      if (!acc[current]) {
+        acc[current] = 0; // checking if it exists because otherwise it would set it to 0 on each iteration resulting it the final count being 1 for everything
+      }
+      // acc[current] = 0; // this is a test if we don't run the "if" code above
+      acc[current] += 1;
+      return acc;
+    }, {})
+
+    console.log(instances);
 
   </script>
 </body>
